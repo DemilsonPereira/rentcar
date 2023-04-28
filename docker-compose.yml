@@ -17,6 +17,7 @@ services:
     app:
         build: .
         container_name: rentcar
+        restart: always
         ports:
             - 3333:3333
             - 9229:9229
