@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
-import { deleteFile } from '../../../../utils/file';
-import { IUserRepository } from '../../repositories/IUserRepository';
+import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
+import { deleteFile } from '@utils/file';
 
 interface IRquest {
     user_id: string;
@@ -11,8 +11,8 @@ interface IRquest {
 @injectable()
 class UpdateUserAvatarUserCase {
     constructor(
-        @inject('UserRepository')
-        private usersRepository: IUserRepository
+        @inject('UsersRepository')
+        private usersRepository: IUsersRepository
     ) {}
 
     async execute({ user_id, avatar_file }: IRquest): Promise<void> {

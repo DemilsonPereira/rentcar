@@ -1,19 +1,15 @@
 import { hash } from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
-import { Repository } from 'typeorm';
 
-import { AppError } from '../../../../errors/AppError';
-import { ICreateUserDTO } from '../../dtos/ICreateUSerDTO';
-import { User } from '../../entities/User';
-import { IUserRepository } from '../../repositories/IUserRepository';
+import { AppError } from '@shared/errors/AppError';
+import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUSerDTO';
+import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 
 @injectable()
 class CreateUserUseCase {
-    private repository: Repository<User>;
-
     constructor(
-        @inject('UserRepository')
-        private usersRepository: IUserRepository
+        @inject('UsersRepository')
+        private usersRepository: IUsersRepository
     ) {}
 
     async execute({
