@@ -1,13 +1,13 @@
 import { inject, injectable } from 'tsyringe';
 
 import { Specification } from '@modules/cars/infra/typeorm/entities/Specification';
-import { ISpecificationRepository } from '@modules/cars/repositories/ISpecificationsRepository';
+import { ISpecificationsRepository } from '@modules/cars/repositories/ISpecificationsRepository';
 
 @injectable()
 class ListSpecificationsUseCase {
     constructor(
-        @inject('SpecificationRepository')
-        private specificationsRepository: ISpecificationRepository
+        @inject('SpecificationsRepository')
+        private specificationsRepository: ISpecificationsRepository
     ) {}
 
     async execute(): Promise<Specification[]> {
