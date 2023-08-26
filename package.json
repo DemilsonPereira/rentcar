@@ -11,7 +11,8 @@
         "typeorm-run": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run",
         "typeorm-create": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create -n",
         "typeorm-revert": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert",
-        "test": "jest"
+        "test": "jest",
+        "seed:admin": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seed/admin.ts"
     },
     "devDependencies": {
         "@types/bcrypt": "^5.0.0",
