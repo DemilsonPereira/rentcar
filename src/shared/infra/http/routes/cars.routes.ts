@@ -29,7 +29,7 @@ carsRoutes.post(
     createCarController.handle
 );
 
-carsRoutes.get('/available', listAvailableCarsController.hanlde);
+carsRoutes.get('/available', listAvailableCarsController.handle);
 
 carsRoutes.post(
     '/specifications/:id',

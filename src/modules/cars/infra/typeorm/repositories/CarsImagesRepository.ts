@@ -27,18 +27,13 @@ class CarsImagesRepository implements ICarsImagesRepository {
     }
 
     async delete(image_id: string): Promise<void> {
-        console.log(image_id);
-
         const carImage = await this.repository.findOne(image_id);
-        console.log(carImage);
 
         if (!carImage) {
             throw new Error('Car image not found');
         }
 
         const imagePath = path.join('tmp', 'cars', carImage.image_name);
-
-        console.log(imagePath);
 
         await fs.unlink(imagePath);
 
@@ -62,14 +57,11 @@ class CarsImagesRepository implements ICarsImagesRepository {
             (image) => image.image_name.split('-')[1]
         );
 
-        console.log(existingImageNamesWithoutHash);
-
         const filesInDirectory = await this.listFilesInCarsDirectory();
 
         const existingImageNamesWithoutHashTmpCars = filesInDirectory.map(
             (image) => image.split('-')[1]
         );
-        console.log(existingImageNamesWithoutHashTmpCars);
 
         if (existingImageNamesWithoutHash.includes(imageNameWithoutHash)) {
             throw new AppError(

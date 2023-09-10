@@ -4,9 +4,7 @@ import { RemoveCarImagesUseCase } from './RemoveCarImagesUseCase';
 
 class RemoveCarImagesController {
     async handle(request: Request, response: Response): Promise<Response> {
-        console.log("Controller");
-        
-        const { car_id, image_ids } = request.body; // Supondo que os parâmetros estão no corpo da requisição
+        const { car_id, image_ids } = request.body;
 
         const removeCarImagesUseCase = container.resolve(
             RemoveCarImagesUseCase

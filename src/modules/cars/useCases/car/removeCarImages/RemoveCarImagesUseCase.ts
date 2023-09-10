@@ -18,8 +18,6 @@ class RemoveCarImagesUseCase {
         private carsRepository: ICarsRepository
     ) {}
     async execute({ car_id, image_ids }: IRequest): Promise<void> {
-        console.log("UseCase");
-
         const carExists = await this.carsRepository.findById(car_id);
 
         if (!carExists) {
