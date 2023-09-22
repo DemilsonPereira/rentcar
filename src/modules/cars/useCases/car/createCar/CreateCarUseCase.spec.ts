@@ -25,48 +25,28 @@ describe('Create Car', () => {
         expect(car).toHaveProperty('id');
     });
 
-    it('should not be able to create a new car with license plate exists', async () => {
-        expect(async () => {
-            const car1 = {
-                name: 'Car 1',
+    it('should not be able to create a car with exists license plate', async () => {
+        await createCarUseCase.execute({
+            name: 'Car1',
+            description: 'Descripton Car',
+            daily_rate: 100,
+            license_plate: 'ABC-1234',
+            fine_amount: 60,
+            brand: 'Brand',
+            category_id: 'category',
+        });
+
+        await expect(
+            createCarUseCase.execute({
+                name: 'Car2',
                 description: 'Description Car',
                 daily_rate: 100,
-                license_plate: 'ABC-123',
-                fine_amount: 80,
+                license_plate: 'ABC-1234',
+                fine_amount: 60,
                 brand: 'Brand',
                 category_id: 'category',
-            };
-
-            const car2 = {
-                name: 'Car 2',
-                description: 'Description Car',
-                daily_rate: 100,
-                license_plate: 'ABC-123',
-                fine_amount: 80,
-                brand: 'Brand',
-                category_id: 'category',
-            };
-
-            await createCarUseCase.execute({
-                name: car1.name,
-                description: car1.description,
-                daily_rate: car1.daily_rate,
-                license_plate: car1.license_plate,
-                fine_amount: car1.fine_amount,
-                brand: car1.brand,
-                category_id: car1.category_id,
-            });
-
-            await createCarUseCase.execute({
-                name: car2.name,
-                description: car2.description,
-                daily_rate: car2.daily_rate,
-                license_plate: car2.license_plate,
-                fine_amount: car2.fine_amount,
-                brand: car2.brand,
-                category_id: car2.category_id,
-            });
-        }).rejects.toBeInstanceOf(AppError);
+            })
+        ).rejects.toEqual(new AppError('Car already exists!'));
     });
 
     it('should be able to create a new car with available true by defauld', async () => {
