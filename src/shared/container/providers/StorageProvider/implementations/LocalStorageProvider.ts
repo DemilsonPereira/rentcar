@@ -13,6 +13,7 @@ class LocalStorageProvider implements IStorageProvider {
 
         return file;
     }
+
     async delete(file: string, folder: string): Promise<void> {
         const fileName = resolve(`${upload.tmpFolder}/${folder}`, file);
 
