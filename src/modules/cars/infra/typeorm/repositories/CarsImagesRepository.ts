@@ -12,42 +12,6 @@ class CarsImagesRepository implements ICarsImagesRepository {
         this.repository = getRepository(CarImage);
     }
 
-    async findByCarIdAndImageName(
-        carId: string,
-        imageName: string
-    ): Promise<CarImage> {
-        const image = await this.repository.findOne({
-            where: {
-                car_id: carId,
-                image_name: imageName,
-            },
-        });
-
-        return image;
-    }
-
-    async delete(image_id: string): Promise<void> {
-        const carImage = await this.repository.findOne(image_id);
-
-        if (!carImage) {
-            throw new Error('Car image not found');
-        }
-
-        const imagePath = path.join('tmp', 'cars', carImage.image_name);
-
-        await fs.unlink(imagePath);
-
-        await this.repository.delete(image_id);
-    }
-
-    async findByCarId(car_id: string): Promise<CarImage[]> {
-        const images = await this.repository.find({
-            where: { car_id },
-        });
-
-        return images;
-    }
-
     async create(car_id: string, image_name: string): Promise<any> {
         const imageNameWithoutHash = image_name.split('-')[1];
 
@@ -85,6 +49,42 @@ class CarsImagesRepository implements ICarsImagesRepository {
         await this.repository.save(carImage);
 
         return carImage;
+    }
+
+    async findByCarId(car_id: string): Promise<CarImage[]> {
+        const images = await this.repository.find({
+            where: { car_id },
+        });
+
+        return images;
+    }
+
+    async findByCarIdAndImageName(
+        carId: string,
+        imageName: string
+    ): Promise<CarImage> {
+        const image = await this.repository.findOne({
+            where: {
+                car_id: carId,
+                image_name: imageName,
+            },
+        });
+
+        return image;
+    }
+
+    async delete(image_id: string): Promise<void> {
+        const carImage = await this.repository.findOne(image_id);
+
+        if (!carImage) {
+            throw new Error('Car image not found');
+        }
+
+        const imagePath = path.join('tmp', 'cars', carImage.image_name);
+
+        await fs.unlink(imagePath);
+
+        await this.repository.delete(image_id);
     }
 
     async listFilesInCarsDirectory(): Promise<string[]> {

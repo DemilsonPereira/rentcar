@@ -48,6 +48,11 @@ carsRoutes.post(
     uploadCarImagesController.handle
 );
 
-carsRoutes.delete('/images', removeCarImagesController.handle);
+carsRoutes.delete(
+    '/images',
+    ensureAuthenticated,
+    ensureAdmin,
+    removeCarImagesController.handle
+);
 
 export { carsRoutes };
